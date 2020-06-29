@@ -112,6 +112,11 @@ RUN apt-get update \
     ca-certificates \
     ffmpeg \
     gcc \
+    libsm6 \
+    libxext6\
+    libxrender-dev \
+    graphviz \
+    libgraphviz-dev \
  && rm -rf /var/lib/apt/lists/*
 
 # TensorFlow
