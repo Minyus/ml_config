@@ -114,34 +114,43 @@ RUN apt-get update \
     gcc \
  && rm -rf /var/lib/apt/lists/*
 
+# TensorFlow
+RUN pip --no-cache-dir install \
+    tensorflow-gpu \
+    Keras
+
+# Big Data
+RUN pip --no-cache-dir install \
+    pyspark \
+    pyarrow \
+    hdfs
+
+# Airflow without dependencies
+RUN pip --no-cache-dir install --no-deps \
+    apache-airflow
+
+# Light-weight Packages
 RUN pip --no-cache-dir install \
     pandas \
-    scipy \
     scikit-learn \
     lightgbm \
     statsmodels \
     torchsummary \
     pytorch-ignite \
     pytorch-lightning \
-    category_encoders \
-    imbalanced-learn \
-    hdfs \
-    s3fs \
-    pyarrow \
-    numba \
-    h5py \
     mlflow \
     tensorboard \
     memory_profiler \
     pynvml \
-    apache-airflow \
     kedro \
     kedro-viz \
-    kedro-airflow \
     kedro-docker \
     pipelinex \
     joblib \
-    dask \
+    numba \
+    category_encoders \
+    imbalanced-learn \
+    h5py \
     scikit-optimize \
     hyperopt \
     optuna \
@@ -154,20 +163,17 @@ RUN pip --no-cache-dir install \
     dtreeviz \
     xonsh \
     click \
+    pipdeptree \
     jupyter \
     isort \
     black \
     flake8 \
     twine \
-    Werkzeug \
     featuretools \
     pytest \
     pytest-cov \
     pytest-mock \
     sphinx \
-    sphinx_rtd_theme \
-    sphinx-autodoc-typehints \
-    typed_ast \
     easydict \
     flatten-dict \
     nested-lookup \
@@ -181,22 +187,17 @@ RUN pip --no-cache-dir install \
     falcon \
     msgpack \
     httpx \
-    aiohttp \
     grpcio \
     grpcio-tools \
     kubernetes \
     prometheus-client
 
-# Spark
-RUN pip --no-cache-dir install \
-    pyspark
-
-# Tables
+# Optional: Tabular data
 RUN pip --no-cache-dir install \
     xgboost \
     catboost
 
-# Computer Vision
+# Optional: Computer Vision
 RUN pip --no-cache-dir install \
     opencv-python \
     opencv-contrib-python \
@@ -206,7 +207,7 @@ RUN pip --no-cache-dir install \
     PyWavelets \
     pycocotools
 
-# NLP
+# Optional: NLP
 RUN pip --no-cache-dir install \
     gensim \
     spacy \
@@ -217,11 +218,6 @@ RUN pip --no-cache-dir install \
     vaderSentiment \
     fuzzywuzzy \
     sentencepiece
-
-# TensorFlow
-RUN pip --no-cache-dir install \
-    tensorflow-gpu \
-    Keras
 
 EXPOSE 22 4141 5000 5555 6006 8000 8080 8793 8888 8889
 ENTRYPOINT [ "/bin/sh", "-c"]
