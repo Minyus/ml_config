@@ -5,6 +5,7 @@ RUN brew install kubectl
 RUN apt-get update \
     && apt-get -yq dist-upgrade \
     && apt-get install -yq --no-install-recommends \
+    bash-completion \
     curl \
     git \
     htop \
