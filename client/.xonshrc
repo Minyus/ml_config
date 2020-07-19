@@ -1,5 +1,7 @@
 $PATH.append("/usr/local/bin/")
 
+$PROMPT = "{WHITE}┌ {GREEN}{user} {WHITE}@ {RED}{hostname} {WHITE}: {PURPLE}{cwd} {WHITE}( {gitstatus} )\n{WHITE}└{INTENSE_YELLOW}{prompt_end} {WHITE}"
+$XONSH_APPEND_NEWLINE = True
 $AUTO_SUGGEST_IN_COMPLETIONS = True
 $COLOR_RESULTS = True
 $EDITOR = '/usr/local/bin/vim'
@@ -15,41 +17,30 @@ $AUTO_CD = True
 $XONSH_SHOW_TRACEBACK = True
 $SUPPRESS_BRANCH_TIMEOUT_MESSAGE = True
 $UPDATE_COMPLETIONS_ON_KEYPRESS = True
-$PROMPT = "{BACKGROUND_#404040}{INTENSE_BLUE}{cwd}{BACKGROUND_#000000}{INTENSE_YELLOW} {prompt_end} {WHITE}"
-$BOTTOM_TOOLBAR = "{#404040}{BACKGROUND_INTENSE_GREEN} {user}{BACKGROUND_WHITE}@{BACKGROUND_INTENSE_PURPLE}{hostname} {BACKGROUND_WHITE}| {BACKGROUND_INTENSE_RED}{curr_branch} "
 $XONSH_HISTORY_SIZE = (3000, 'commands')
 $XONSH_HISTORY_MATCH_ANYWHERE = True
-
-
-aliases["ls"] = "ls -lha"
-aliases["ll"] = "ls -lha"
-aliases["lt"] = "ls -lhat"
-aliases['free'] = "free -h"
-aliases['fh'] = 'free -h'
-aliases['wf'] = 'watch free -h'
-aliases["vi"] = "vim"
-aliases["vx"] = "vim ~/.xonshrc"
-aliases["vv"] = "vim ~/.vimrc"
-aliases["vs"] = "vim ~/.ssh/config"
-aliases["c"] = "cd"
-aliases["d"] = "cd .."
-aliases["dd"] = "cd ../.."
-aliases["ddd"] = "cd ../../.."
-aliases["dddd"] = "cd ../../../.."
-aliases["ddddd"] = "cd ../../../../.."
-aliases["t"] = "tree -L 1 -a -f -p --si --du --timefmt '%Y/%m/%d(%a) %H:%M;%S'"
-aliases["tt"] = "tree -L 2 -a -f -p --si --du --timefmt '%Y/%m/%d(%a) %H:%M:%S'"
-aliases["ttt"] = "tree -L 3 -a -f -p --si --du --timefmt '%Y/%m/%d(%a) %H:%M:%S'"
-aliases["tttt"] = "tree -L 4 -a -f -p --si --du --timefmt '%Y/%m/%d(%a) %H:%M:%S'"
-aliases["ttttt"] = "tree -L 5 -a -f -p --si --du --timefmt '%Y/%m/%d(%a) %H:%M:%S'"
-aliases["doc"] = "sudo docker"
-aliases["km"] = "echo black . ; black .;echo isort -rc . ; isort -rc .; echo flake8 . ; flake8 .; echo mypy . ./src/; mypy . ./src/"
-aliases["jup"] = "jupyter notebook --ip 0.0.0.0 --allow-root --no-browser --no-mathjax --notebook-dir ."
-aliases["juph"] = "jupyter notebook --ip 0.0.0.0 --allow-root --no-browser --no-mathjax --notebook-dir /home"
-aliases["mlf"] = "mlflow server --host 0.0.0.0"
-aliases["ten"] = "tensorboard --host 0.0.0.0 --logdir /path/to/tensorboard_logdir"
-aliases["ked"] = "kedro viz --host 0.0.0.0"
-
-$ns = "default"
-aliases["k"] = "kubectl -n $ns"
-# source <(kubectl completion bash)
+aliases["ll"]="ls -lah"
+aliases["ls"]="tree -L 1 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
+aliases["tt"]="tree -L 2 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
+aliases["ttt"]="tree -L 3 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
+aliases["tttt"]="tree -L 4 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
+aliases["ttttt"]="tree -L 5 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
+aliases["vi"]="vim"
+aliases["vb"]="vim ~/.bashrc"
+aliases["vx"]="vim ~/.xonshrc"
+aliases["vs"]="vim ~/.ssh/config"
+aliases["vv"]="vim ~/.vimrc"
+aliases["d"]="cd .."
+aliases["dd"]="cd ../.."
+aliases["ddd"]="cd ../../.."
+aliases["dddd"]="cd ../../../.."
+aliases["ddddd"]="cd ../../../../.."
+aliases["fh"]="free -h"
+aliases["wf"]="watch free -h"
+aliases["doc"]="docker"
+aliases["dc"]="docker-compose"
+aliases["jup"]="jupyter notebook --ip 0.0.0.0 --allow-root --no-browser --no-mathjax --notebook-dir ."
+aliases["ten"]="tensorboard --host 0.0.0.0 --logdir"
+aliases["mlf"]="mlflow server --host 0.0.0.0"
+aliases["ked"]="kedro viz --host 0.0.0.0"
+aliases["k"]="kubectl"
