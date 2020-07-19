@@ -2,6 +2,18 @@ FROM homebrew/ubuntu18.04:2.4.7
 
 RUN brew install kubectl
 
+# Install Miniconda, Python, and Xonsh
+ARG PYTHON_VERSION=3.7
+RUN curl -fsSL -v -o ~/miniconda.sh -O  https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh  && \
+    chmod +x ~/miniconda.sh && \
+    ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh && \
+    /opt/conda/bin/conda install -y python=${PYTHON_VERSION} && \
+    /opt/conda/bin/conda config --add channels conda-forge && \
+    /opt/conda/bin/conda install xonsh && \
+    /opt/conda/bin/conda clean -ya
+ENV PATH=/opt/conda/bin:$PATH
+
 RUN apt-get update \
     && apt-get -yq dist-upgrade \
     && apt-get install -yq --no-install-recommends \
@@ -18,7 +30,6 @@ RUN apt-get update \
     unzip \
     vim \
     wget \
-    xonsh \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root
