@@ -2,6 +2,8 @@ FROM homebrew/ubuntu18.04:2.4.7
 
 RUN brew install kubectl
 
+RUN brew install helm
+
 # Install Miniconda, Python, and Xonsh
 ARG PYTHON_VERSION=3.7
 RUN curl -fsSL -v -o ~/miniconda.sh -O  https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh  && \
