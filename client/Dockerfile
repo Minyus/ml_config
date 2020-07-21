@@ -34,7 +34,7 @@ RUN apt-get update \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /root
+WORKDIR /
 
 # Configure Bash
 COPY ./.bashrc /root/.bashrc_from_context
