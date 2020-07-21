@@ -15,7 +15,7 @@ complete -F __start_kubectl k
 
 
 alias ll="ls -lah"
-alias ls="tree -L 1 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
+alias t="tree -L 1 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
 alias tt="tree -L 2 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
 alias ttt="tree -L 3 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
 alias tttt="tree -L 4 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
