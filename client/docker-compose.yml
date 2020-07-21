@@ -1,16 +1,17 @@
-version: '3.8'
+version: '3'
 services:
   client:
     build:
       context: .
       dockerfile: Dockerfile
-    image: minyus86/client:0.4.0
+    image: minyus86/client:0.5.0
     container_name: client
     # privileged: true
     # environment: []
     entrypoint: /bin/sh
     tty: true
     volumes:
+      - ~/.kube/config:/root/.kube/config
       - ../../:/data
     # ports: []
     network_mode: host
