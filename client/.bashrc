@@ -1,19 +1,11 @@
-# export PS1="\[\e[33;44m\]\W\[\e[m\] \[\e[31;40m\]\\$\[\e[m\] "
 
-# https://discourse.brew.sh/t/bash-completion-2-vs-brews-auto-installed-bash-completions/2391/2
-if [[ -e "/usr/local/share/bash-completion/bash_completion" ]]; then
-	export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-	source "/usr/local/share/bash-completion/bash_completion"
-elif [[ -e "/usr/local/etc/profile.d/bash_completion.sh" ]]; then
-	source "/usr/local/etc/profile.d/bash_completion.sh"
-elif [[ -e "/etc/bash_completion" ]]; then
-	source "/etc/bash_completion"
-fi
+###################################################
 
-source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
-complete -F __start_kubectl k
+# Set up prompt
+# Tool: http://ezprompt.net/
+export PS1="| \[\e[32;40m\]\u\[\e[m\] @ \[\e[31;40m\]\h\[\e[m\] : \[\e[35;40m\]\w\[\e[m\] \n|\[\e[33m\]\\$\[\e[m\] "
 
-
+# Set up aliases
 alias ll="ls -lah"
 alias t="tree -L 1 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
 alias tt="tree -L 2 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
@@ -32,10 +24,17 @@ alias dddd="cd ../../../.."
 alias ddddd="cd ../../../../.."
 alias fh="free -h"
 alias wf="watch free -h"
-alias doc="docker"
-alias dc="docker-compose"
 alias jup="jupyter notebook --ip 0.0.0.0 --allow-root --no-browser --no-mathjax --notebook-dir ."
 alias ten="tensorboard --host 0.0.0.0 --logdir"
 alias mlf="mlflow server --host 0.0.0.0"
 alias ked="kedro viz --host 0.0.0.0"
+alias doc="docker"
+alias de="docker exec -it"
+alias dc="docker-compose"
+
+# Set up autocompletion for kubectl: 
+# Reference: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+source /usr/share/bash-completion/bash_completion
+kubectl completion bash >/etc/bash_completion.d/kubectl
 alias k="kubectl"
+complete -F __start_kubectl k
