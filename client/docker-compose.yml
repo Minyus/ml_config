@@ -4,14 +4,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: minyus86/client:0.6.0
+    image: minyus86/client:0.7.0
     container_name: client
     # privileged: true
     # environment: []
     entrypoint: /bin/sh
     tty: true
     volumes:
-      - ~/.kube/config:/root/.kube/config
+      - ~/.kube/:/root/.kube/
+      - ~/.ssh/:/root/.ssh/
       - ../../:/data
     # ports: []
     network_mode: host
