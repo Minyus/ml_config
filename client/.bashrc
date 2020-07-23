@@ -32,9 +32,17 @@ alias doc="docker"
 alias de="docker exec -it"
 alias dc="docker-compose"
 
-# Set up autocompletion for kubectl: 
+# Set up autocompletion for kubectl
 # Reference: https://kubernetes.io/docs/tasks/tools/install-kubectl/
 source /usr/share/bash-completion/bash_completion
 kubectl completion bash >/etc/bash_completion.d/kubectl
+
+# If the environment is macOS:
+# source "/usr/local/share/bash-completion/bash_completion"
+# export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+# kubectl completion bash >"$BASH_COMPLETION_COMPAT_DIR/kubectl"
+
 alias k="kubectl"
 complete -F __start_kubectl k
+
+alias kn="kubectl config set-context --current --namespace"
