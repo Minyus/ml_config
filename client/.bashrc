@@ -37,17 +37,33 @@ alias dc="docker-compose"
 
 # If the environment is Linux:
 if [[ -e "/usr/share/bash-completion/bash_completion" ]]; then
-    BASH_COMPLETION_COMPAT_DIR_ORIGINAL="/etc/bash_completion.d"
-    export BASH_COMPLETION_COMPAT_DIR="$HOME/.bash_completion.d"
-    mkdir "$BASH_COMPLETION_COMPAT_DIR"
-    cp -RT "$BASH_COMPLETION_COMPAT_DIR_ORIGINAL/" "$BASH_COMPLETION_COMPAT_DIR/"
-    kubectl completion bash > "$BASH_COMPLETION_COMPAT_DIR/kubectl"
-    source /usr/share/bash-completion/bash_completion
+
+    # If bash_completion script has not been sourced: 
+    if [[ -z "$BASH_COMPLETION_COMPAT_DIR" ]]; then
+        BASH_COMPLETION_COMPAT_DIR_ORIGINAL="/etc/bash_completion.d"
+        export BASH_COMPLETION_COMPAT_DIR="$HOME/.bash_completion.d"
+        mkdir "$BASH_COMPLETION_COMPAT_DIR"
+        cp -RT "$BASH_COMPLETION_COMPAT_DIR_ORIGINAL/" "$BASH_COMPLETION_COMPAT_DIR/"
+        kubectl completion bash > "$BASH_COMPLETION_COMPAT_DIR/kubectl"
+        source /usr/share/bash-completion/bash_completion
+    
+    # If the user is root:
+    elif [[ -w "$BASH_COMPLETION_COMPAT_DIR" ]]; then
+        kubectl completion bash > "$BASH_COMPLETION_COMPAT_DIR/kubectl"
+        source /usr/share/bash-completion/bash_completion
+    
+    # Otherwise:
+    else
+        source <(kubectl completion bash)
+
+    fi
+
 # If the environment is macOS:
 elif [[ -e "/usr/local/share/bash-completion/bash_completion" ]]; then
 	export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
     kubectl completion bash > "$BASH_COMPLETION_COMPAT_DIR/kubectl"
 	source "/usr/local/share/bash-completion/bash_completion"
+
 fi
 
 alias k="kubectl"
