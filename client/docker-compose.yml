@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: minyus86/client:0.7.2
+    image: minyus86/client:0.8.3
     container_name: client
     # privileged: true
     # environment: []

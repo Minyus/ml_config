@@ -34,13 +34,21 @@ alias dc="docker-compose"
 
 # Set up autocompletion for kubectl
 # Reference: https://kubernetes.io/docs/tasks/tools/install-kubectl/
-source /usr/share/bash-completion/bash_completion
-kubectl completion bash >/etc/bash_completion.d/kubectl
 
+# If the environment is Linux:
+if [[ -e "/usr/share/bash-completion/bash_completion" ]]; then
+    BASH_COMPLETION_COMPAT_DIR_ORIGINAL="/etc/bash_completion.d"
+    export BASH_COMPLETION_COMPAT_DIR="$HOME/.bash_completion.d"
+    mkdir "$BASH_COMPLETION_COMPAT_DIR"
+    cp -RT "$BASH_COMPLETION_COMPAT_DIR_ORIGINAL/" "$BASH_COMPLETION_COMPAT_DIR/"
+    kubectl completion bash > "$BASH_COMPLETION_COMPAT_DIR/kubectl"
+    source /usr/share/bash-completion/bash_completion
 # If the environment is macOS:
-# source "/usr/local/share/bash-completion/bash_completion"
-# export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-# kubectl completion bash >"$BASH_COMPLETION_COMPAT_DIR/kubectl"
+elif [[ -e "/usr/local/share/bash-completion/bash_completion" ]]; then
+	export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+    kubectl completion bash > "$BASH_COMPLETION_COMPAT_DIR/kubectl"
+	source "/usr/local/share/bash-completion/bash_completion"
+fi
 
 alias k="kubectl"
 complete -F __start_kubectl k
