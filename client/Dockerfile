@@ -51,5 +51,5 @@ COPY ./.vimrc /root
 ENV TERM=xterm-256color
 ENV LC_ALL=C.UTF-8
 
-ENTRYPOINT ["/bin/sh"]
-CMD ["-c", "tail", "-f", "/dev/null"]
+ENTRYPOINT ["/bin/bash", "-c"]
+CMD ["tail", "-f", "/dev/null"]
