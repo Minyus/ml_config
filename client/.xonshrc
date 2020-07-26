@@ -1,4 +1,5 @@
-$PATH.append("/usr/local/bin/")
+print("Configuring Xonsh...")
+
 $XONSH_HISTORY_SIZE = (3000, 'commands')
 $SUPPRESS_BRANCH_TIMEOUT_MESSAGE = True
 $UPDATE_COMPLETIONS_ON_KEYPRESS = True
@@ -14,6 +15,11 @@ $INDENT = "    "
 $HISTCONTROL = {"ignoredups", "ignoreerr"}
 $IGNOREEOF = True
 $MOUSE_SUPPORT = True
+
+# Enable automatic "ls" upon "cd"
+@events.on_chdir
+def cl(olddir, newdir, **kw):
+    ls -a
 
 aliases["ll"]="ls -lah"
 aliases["t"]="tree -L 1 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
@@ -42,3 +48,5 @@ aliases["de"]="docker exec -it"
 aliases["dc"]="docker-compose"
 aliases["k"]="kubectl"
 aliases["kn"]="kubectl config set-context --current --namespace"
+
+print("Xonsh is ready!")

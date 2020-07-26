@@ -5,6 +5,13 @@
 # Tool: http://ezprompt.net/
 export PS1="| \[\e[32;40m\]\u\[\e[m\] @ \[\e[31;40m\]\h\[\e[m\] : \[\e[35;40m\]\w\[\e[m\] \n|\[\e[33m\]\\$\[\e[m\] "
 
+# Enable automatic "ls" upon "cd"
+cl()
+{
+    \cd "$@" && ls
+}
+alias c="cl"
+
 # Set up aliases
 alias ll="ls -lah"
 alias t="tree -L 1 -a -f -p --si --du --timefmt '%Y/%m/%d %H:%M'"
@@ -37,33 +44,30 @@ alias dc="docker-compose"
 
 # If the environment is Linux:
 if [[ -e "/usr/share/bash-completion/bash_completion" ]]; then
-
-    # If bash_completion script has not been sourced: 
-    if [[ -z "$BASH_COMPLETION_COMPAT_DIR" ]]; then
-        BASH_COMPLETION_COMPAT_DIR_ORIGINAL="/etc/bash_completion.d"
-        export BASH_COMPLETION_COMPAT_DIR="$HOME/.bash_completion.d"
-        mkdir "$BASH_COMPLETION_COMPAT_DIR"
-        cp -RT "$BASH_COMPLETION_COMPAT_DIR_ORIGINAL/" "$BASH_COMPLETION_COMPAT_DIR/"
-        kubectl completion bash > "$BASH_COMPLETION_COMPAT_DIR/kubectl"
-        source /usr/share/bash-completion/bash_completion
+    export BASH_COMPLETION_COMPAT_DIR="/etc/bash_completion.d"
     
-    # If the user is root:
-    elif [[ -w "$BASH_COMPLETION_COMPAT_DIR" ]]; then
-        kubectl completion bash > "$BASH_COMPLETION_COMPAT_DIR/kubectl"
-        source /usr/share/bash-completion/bash_completion
-    
-    # Otherwise:
-    else
-        source <(kubectl completion bash)
-
+    # source bash completion installed by brew
+    compat_dir="/home/linuxbrew/.linuxbrew/etc/bash_completion.d" 
+    if [[ -d $compat_dir && -r $compat_dir && -x $compat_dir ]]; then
+        for i in "$compat_dir"/*; do
+            if [[ -w "$BASH_COMPLETION_COMPAT_DIR" ]]; then
+                cp "$i" "$BASH_COMPLETION_COMPAT_DIR" 
+            else
+                source "$i"
+            fi
+        done
     fi
+    unset compat_dir i
+
+    source "/usr/share/bash-completion/bash_completion"
+
 
 # If the environment is macOS:
 elif [[ -e "/usr/local/share/bash-completion/bash_completion" ]]; then
 	export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
     kubectl completion bash > "$BASH_COMPLETION_COMPAT_DIR/kubectl"
 	source "/usr/local/share/bash-completion/bash_completion"
-
+    export PATH="$PATH:/usr/local/bin/"
 fi
 
 alias k="kubectl"
