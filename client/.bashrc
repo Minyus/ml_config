@@ -44,7 +44,7 @@ alias dc="docker-compose"
 
 # If the environment is Linux:
 if [[ -e "/usr/share/bash-completion/bash_completion" ]]; then
-    export BASH_COMPLETION_COMPAT_DIR="/etc/bash_completion.d"
+    # export BASH_COMPLETION_COMPAT_DIR="/etc/bash_completion.d"
     source "/usr/share/bash-completion/bash_completion"
 
 # If the environment is macOS:
@@ -69,3 +69,5 @@ alias k="kubectl"
 complete -F __start_kubectl k
 
 alias kn="kubectl config set-context --current --namespace"
+
+source <(helm completion bash)
