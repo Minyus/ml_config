@@ -8,7 +8,7 @@ export PS1="| \[\e[32;40m\]\u\[\e[m\] @ \[\e[31;40m\]\h\[\e[m\] : \[\e[35;40m\]\
 # Enable automatic "ls" upon "cd"
 cl()
 {
-    \cd "$@" && ls
+    \cd "$@" && echo ">> [ $(pwd) ]" && ls -a
 }
 alias c="cl"
 
@@ -45,30 +45,25 @@ alias dc="docker-compose"
 # If the environment is Linux:
 if [[ -e "/usr/share/bash-completion/bash_completion" ]]; then
     export BASH_COMPLETION_COMPAT_DIR="/etc/bash_completion.d"
-    
-    # source bash completion installed by brew
-    compat_dir="/home/linuxbrew/.linuxbrew/etc/bash_completion.d" 
-    if [[ -d $compat_dir && -r $compat_dir && -x $compat_dir ]]; then
-        for i in "$compat_dir"/*; do
-            if [[ -w "$BASH_COMPLETION_COMPAT_DIR" ]]; then
-                cp "$i" "$BASH_COMPLETION_COMPAT_DIR" 
-            else
-                source "$i"
-            fi
-        done
-    fi
-    unset compat_dir i
-
     source "/usr/share/bash-completion/bash_completion"
-
 
 # If the environment is macOS:
 elif [[ -e "/usr/local/share/bash-completion/bash_completion" ]]; then
 	export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-    kubectl completion bash > "$BASH_COMPLETION_COMPAT_DIR/kubectl"
 	source "/usr/local/share/bash-completion/bash_completion"
-    export PATH="$PATH:/usr/local/bin/"
+
 fi
+
+# additional bash completions
+compat_dir="/home/linuxbrew/.linuxbrew/etc/bash_completion.d" 
+if [[ -d $compat_dir && -r $compat_dir && -x $compat_dir ]]; then
+    for i in "$compat_dir"/*; do
+        source "$i"
+    done
+fi
+unset compat_dir i
+
+source <(kubectl completion bash)
 
 alias k="kubectl"
 complete -F __start_kubectl k

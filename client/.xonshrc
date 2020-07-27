@@ -1,5 +1,12 @@
 print("Configuring Xonsh...")
 
+$BASH_COMPLETIONS = (
+    "$HOME/.bashrc_from_context",
+    "$HOME/.bashrc",
+    "/usr/share/bash-completion/bash_completion", 
+    "/usr/local/share/bash-completion/bash_completion", 
+    "/usr/local/etc/bash_completion",
+    )
 $XONSH_HISTORY_SIZE = (3000, 'commands')
 $SUPPRESS_BRANCH_TIMEOUT_MESSAGE = True
 $UPDATE_COMPLETIONS_ON_KEYPRESS = True
@@ -20,6 +27,7 @@ $MOUSE_SUPPORT = True
 # Enable automatic "ls" upon "cd"
 @events.on_chdir
 def cl(olddir, newdir, **kw):
+    print(">> [ " + newdir + " ]")
     ls -a
 
 aliases["ll"]="ls -lah"
