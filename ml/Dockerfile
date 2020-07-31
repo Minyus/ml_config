@@ -1,3 +1,16 @@
+#############################
+# Info about the base image #
+#############################
+
+# Docker Hub:
+# https://hub.docker.com/layers/pytorch/pytorch/1.6.0-cuda10.1-cudnn7-runtime/images/sha256-9c3aa4653f6fb6590acf7f49115735be3c3272f4fa79e5da7c96a2c901631352?context=explore
+# 
+# Dockerfile:
+# https://github.com/pytorch/pytorch/blob/master/Dockerfile
+# 
+# ARG BASE_IMAGE=ubuntu:18.04
+# ARG PYTHON_VERSION=3.7
+# 
 # packages in environment at /opt/conda:
 #
 # Name                    Version                   Build  Channel
@@ -91,48 +104,36 @@
 # zlib                      1.2.11               h7b6447c_3  
 # zstd                      1.4.4                h0b5b093_3  
 
-FROM pytorch/pytorch:1.5.1-cuda10.1-cudnn7-runtime
+FROM pytorch/pytorch:1.6.0-cuda10.1-cudnn7-runtime
 
 RUN apt-get update \
- && apt-get -yq dist-upgrade \
- && apt-get install -yq --no-install-recommends \
+    && apt-get -yq dist-upgrade \
+    && apt-get install -yq --no-install-recommends \
     apt-utils \
-    sudo \
-    git \
-    rsync \
-    curl \
-    wget \
-    tree \
-    htop \
-    vim \
-    net-tools \
-    tmux \
-    unzip \
-    openssh-server \
+    bash-completion \
     ca-certificates \
+    curl \
     ffmpeg \
     gcc \
+    git \
+    graphviz \
+    htop \
+    httpie \
+    libgraphviz-dev \
     libsm6 \
     libxext6\
     libxrender-dev \
-    graphviz \
-    libgraphviz-dev \
- && rm -rf /var/lib/apt/lists/*
-
-# TensorFlow
-RUN pip --no-cache-dir install \
-    tensorflow-gpu \
-    Keras
-
-# Big Data
-RUN pip --no-cache-dir install \
-    pyspark \
-    pyarrow \
-    hdfs
-
-# Airflow without dependencies
-RUN pip --no-cache-dir install --no-deps \
-    apache-airflow
+    net-tools \
+    openssh-client \
+    openssh-server \
+    rsync \
+    sudo \
+    tmux \
+    tree \
+    unzip \
+    vim \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
 
 # Light-weight Packages
 RUN pip --no-cache-dir install \
@@ -149,7 +150,6 @@ RUN pip --no-cache-dir install \
     pynvml \
     kedro \
     kedro-viz \
-    kedro-docker \
     pipelinex \
     joblib \
     numba \
@@ -166,8 +166,9 @@ RUN pip --no-cache-dir install \
     bokeh \
     lime \
     dtreeviz \
-    xonsh \
+    xonsh!=0.9.18 \
     click \
+    hydra \
     pipdeptree \
     jupyter \
     isort \
@@ -197,7 +198,19 @@ RUN pip --no-cache-dir install \
     kubernetes \
     prometheus-client
 
-# Optional: Tabular data
+# Optional: Tensorflow
+RUN /opt/conda/bin/conda install -c anaconda -y tensorflow-gpu && \
+    /opt/conda/bin/conda config --add channels conda-forge && \
+    /opt/conda/bin/conda install -c conda-forge -y keras && \ 
+    /opt/conda/bin/conda clean -ya
+
+# Optional: Data processing
+RUN pip --no-cache-dir install \
+    pyspark \
+    pyarrow \
+    hdfs
+
+# Optional: Gradient boosting
 RUN pip --no-cache-dir install \
     xgboost \
     catboost
@@ -224,6 +237,10 @@ RUN pip --no-cache-dir install \
     fuzzywuzzy \
     sentencepiece
 
+# Optional: Airflow without dependencies for DAG coding
+RUN pip --no-cache-dir install --no-deps \
+    apache-airflow
+
 EXPOSE 22 4141 5000 5555 6006 8000 8080 8793 8888 8889
-ENTRYPOINT [ "/bin/sh", "-c"]
-CMD ["/bin/bash"]
+ENTRYPOINT ["/bin/bash", "-c"]
+CMD ["tail", "-f", "/dev/null"]
