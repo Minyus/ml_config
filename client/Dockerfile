@@ -37,12 +37,12 @@ RUN apt-get update \
 WORKDIR /
 
 # Configure Bash
-COPY ./.bashrc /root/.bashrc_from_context
-RUN cat /root/.bashrc_from_context >> /root/.bashrc
+COPY ./.bashrc_interactive /root
+RUN echo '[[ $- =~ i ]] && source $HOME/.bashrc_interactive'  >> /root/.bashrc
 
 # Configure Xonsh
 COPY ./.xonshrc /root
-# RUN cat /root/.bashrc_from_context | grep "^alias " | sed -e 's/alias /aliases\[\"/g' | sed -e 's/=/\"\]=/g' >> /root/.xonshrc
+# RUN cat /root/.bashrc_interactive | grep "^alias " | sed -e 's/alias /aliases\[\"/g' | sed -e 's/=/\"\]=/g' >> /root/.xonshrc
 
 # Configure Vim
 COPY ./.vimrc /root

@@ -1,7 +1,7 @@
 print("Configuring Xonsh...")
 
 $BASH_COMPLETIONS = (
-    "$HOME/.bashrc_from_context",
+    "$HOME/.bashrc_interactive",
     "$HOME/.bashrc",
     "/usr/share/bash-completion/bash_completion", 
     "/usr/local/share/bash-completion/bash_completion", 
