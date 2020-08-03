@@ -21,6 +21,7 @@ Environment of client for MLOps/Kubernetes
   - Aliases
 
 ### `.xonshrc`
+  ![kubectl_in_Xonsh](https://github.com/Minyus/ml_config/blob/master/client/img/kubectl_in_Xonsh.png)
   - Enable bash-completion inherited from .bashrc in the pull-down menu of Xonsh without pressing Tab key 
   - Automatic `ls` after `cd`
   - Two-line prompt
