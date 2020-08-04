@@ -33,10 +33,26 @@ Environment of client for MLOps/Kubernetes
 ### `.vimrc`
   - Enable https://github.com/itchyny/lightline.vim
 
-### Instruction to set up without Docker in Linux or macOS
+## Instruction to set up without Docker in Linux or macOS
+  - Make sure bash-completion is installed.
+    - [Ubuntu]: If you do not find `/usr/share/bash-completion/bash_completion`, install by apt:
+     ```bash
+     $ apt-get update && apt-get -yq dist-upgrade && apt-get install -yq --no-install-recommends bash-completion
+     ```
+    - [macOS]: If you do not find `/usr/local/share/bash-completion/bash_completion`, install by Homebrew:
+     ```bash
+     $ brew install bash-completion
+     ```
   - Copy `.bashrc_interactive`, `.xonshrc`, and `.vimrc` to `$HOME` directory.
-  - Install bash and bash-completion.
-  - To use `bashrc_interactive` in Xonsh, install [Xonsh](https://xon.sh/index.html#installation).
+  - To use `.bashrc_interactive` in Xonsh, install Python and [Xonsh](https://xon.sh/index.html#installation) by conda or pip:
+    ```bash
+    $ conda config --add channels conda-forge
+    $ conda install xonsh
+    ```
+    or
+    ```bash
+    $ pip install xonsh
+    ```
   - To use `.bashrc_interactive` in Bash in interactive mode, append the following script to `$HOME/.bashrc`.
     ```bash
     [[ $- =~ i ]] && source $HOME/.bashrc_interactive
