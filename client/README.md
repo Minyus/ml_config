@@ -34,7 +34,9 @@ Environment of client for MLOps/Kubernetes
   - Enable https://github.com/itchyny/lightline.vim
 
 ### Instruction to set up without Docker in Linux or macOS
-  - Copy `.bashrc_interactive`, `.xonshrc`, and `.vimrc` to `$HOME` directory
+  - Copy `.bashrc_interactive`, `.xonshrc`, and `.vimrc` to `$HOME` directory.
+  - Install bash and bash-completion.
+  - To use `bashrc_interactive` in Xonsh, install [Xonsh](https://xon.sh/index.html#installation).
   - To use `.bashrc_interactive` in Bash in interactive mode, append the following script to `$HOME/.bashrc`.
     ```bash
     [[ $- =~ i ]] && source $HOME/.bashrc_interactive
