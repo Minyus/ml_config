@@ -1,10 +1,10 @@
-version: '3'
+version: "3"
 services:
   client:
     build:
       context: .
       dockerfile: Dockerfile
-    image: minyus86/client:1.0.3
+    image: minyus86/client:1.0.4
     container_name: client
     # privileged: true
     # environment: []
@@ -17,7 +17,7 @@ services:
     # ports: []
     network_mode: host
     # networks:
-        # - kind
+    # - kind
 # networks:
-  # kind:
-    # external: true
+# kind:
+# external: true
