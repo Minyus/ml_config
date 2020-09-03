@@ -1,5 +1,27 @@
 FROM homebrew/ubuntu18.04:2.4.7
 
+RUN apt-get update \
+    && apt-get -yq dist-upgrade \
+    && apt-get install -yq --no-install-recommends \
+    bash-completion \
+    ca-certificates \
+    curl \
+    gettext \
+    git \
+    htop \
+    httpie \
+    jq \
+    net-tools \
+    openssh-client \
+    rsync \
+    tar \
+    tmux \
+    tree \
+    unzip \
+    vim \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN brew install kubectl
 
 RUN brew install helm
@@ -15,24 +37,6 @@ RUN curl -fsSL -v -o ~/miniconda.sh -O  https://repo.anaconda.com/miniconda/Mini
     /opt/conda/bin/conda install xonsh && \
     /opt/conda/bin/conda clean -ya
 ENV PATH=/opt/conda/bin:$PATH
-
-RUN apt-get update \
-    && apt-get -yq dist-upgrade \
-    && apt-get install -yq --no-install-recommends \
-    bash-completion \
-    curl \
-    git \
-    htop \
-    httpie \
-    net-tools \
-    openssh-client \
-    rsync \
-    tmux \
-    tree \
-    unzip \
-    vim \
-    wget \
-    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /
 

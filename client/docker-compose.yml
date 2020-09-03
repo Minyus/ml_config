@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: minyus86/client:1.0.6
+    image: minyus86/client:1.1.0
     container_name: client
     # privileged: true
     # environment: []
@@ -16,8 +16,3 @@ services:
       - ../../:/data
     # ports: []
     network_mode: host
-    # networks:
-    # - kind
-# networks:
-# kind:
-# external: true
