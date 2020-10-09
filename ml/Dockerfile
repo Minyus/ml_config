@@ -115,10 +115,12 @@ RUN apt-get update \
     curl \
     ffmpeg \
     gcc \
+    gettext \
     git \
     graphviz \
     htop \
     httpie \
+    jq \
     libgraphviz-dev \
     libsm6 \
     libxext6\
@@ -128,6 +130,7 @@ RUN apt-get update \
     openssh-server \
     rsync \
     sudo \
+    tar \
     tmux \
     tree \
     unzip \
@@ -166,7 +169,7 @@ RUN pip --no-cache-dir install \
     bokeh \
     lime \
     dtreeviz \
-    xonsh!=0.9.18 \
+    xonsh \
     click \
     hydra \
     pipdeptree \
@@ -196,24 +199,28 @@ RUN pip --no-cache-dir install \
     grpcio \
     grpcio-tools \
     kubernetes \
-    prometheus-client
+    prometheus-client \
+    && true
 
 # Optional: Tensorflow
-RUN /opt/conda/bin/conda install -c anaconda -y tensorflow-gpu && \
-    /opt/conda/bin/conda config --add channels conda-forge && \
-    /opt/conda/bin/conda install -c conda-forge -y keras && \ 
-    /opt/conda/bin/conda clean -ya
+# RUN /opt/conda/bin/conda install -c anaconda -y tensorflow-gpu && \
+#     /opt/conda/bin/conda config --add channels conda-forge && \
+#     /opt/conda/bin/conda install -c conda-forge -y keras && \ 
+#     /opt/conda/bin/conda clean -ya \
+#     && true
 
 # Optional: Data processing
-RUN pip --no-cache-dir install \
-    pyspark \
-    pyarrow \
-    hdfs
+# RUN pip --no-cache-dir install \
+#     pyspark \
+#     pyarrow \
+#     hdfs \
+#     && true
 
 # Optional: Gradient boosting
-RUN pip --no-cache-dir install \
-    xgboost \
-    catboost
+# RUN pip --no-cache-dir install \
+#     xgboost \
+#     catboost \
+#     && true
 
 # Optional: Computer Vision
 RUN pip --no-cache-dir install \
@@ -221,25 +228,28 @@ RUN pip --no-cache-dir install \
     opencv-contrib-python \
     scikit-image \
     imgaug \
-    mahotas \
-    PyWavelets \
-    pycocotools
+    # mahotas \
+    # PyWavelets \
+    # pycocotools \
+    && true
 
 # Optional: NLP
-RUN pip --no-cache-dir install \
-    gensim \
-    spacy \
-    nltk \
-    sacremoses \
-    pyonmttok \
-    pyLDAvis \
-    vaderSentiment \
-    fuzzywuzzy \
-    sentencepiece
+# RUN pip --no-cache-dir install \
+#     gensim \
+#     spacy \
+#     nltk \
+#     sacremoses \
+#     pyonmttok \
+#     pyLDAvis \
+#     vaderSentiment \
+#     fuzzywuzzy \
+#     sentencepiece \
+#     && true
 
 # Optional: Airflow without dependencies for DAG coding
-RUN pip --no-cache-dir install --no-deps \
-    apache-airflow
+# RUN pip --no-cache-dir install --no-deps \
+#     apache-airflow \
+#     && true
 
 EXPOSE 22 4141 5000 5555 6006 8000 8080 8793 8888 8889
 ENTRYPOINT ["/bin/bash", "-c"]

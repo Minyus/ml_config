@@ -1,10 +1,10 @@
-version: '3'
+version: "3"
 services:
   ml:
     build:
       context: .
       dockerfile: Dockerfile
-    image: minyus86/ml:v0.2.0-cuda10.1-cudnn7-runtime
+    image: minyus86/ml:v0.3.0-cuda10.1-cudnn7-runtime
     container_name: ml
     # privileged: true
     environment: []
@@ -12,16 +12,16 @@ services:
     tty: true
     volumes:
       - ../../:/data
-    ports: 
+    ports:
       - 4141:4141
       - 5000:5000
       - 6006:6006
       - 8000:8000
       - 8888:8888
       - 8889:8889
-    # network_mode: host
-    # networks:
-        # - kind
+#     network_mode: host
+#     networks:
+#         - kind
 # networks:
-  # kind:
-    # external: true
+#   kind:
+#     external: true
