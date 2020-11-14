@@ -146,7 +146,7 @@ RUN pip --no-cache-dir install \
     statsmodels \
     torchsummary \
     pytorch-ignite \
-    pytorch-lightning \
+    # pytorch-lightning \
     mlflow \
     tensorboard \
     memory_profiler \
