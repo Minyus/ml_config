@@ -111,6 +111,7 @@ RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
     apt-utils \
     bash-completion \
+    build-essential \
     ca-certificates \
     curl \
     ffmpeg \
@@ -146,7 +147,7 @@ RUN pip --no-cache-dir install \
     statsmodels \
     torchsummary \
     pytorch-ignite \
-    # pytorch-lightning \
+    pytorch-lightning \
     mlflow \
     tensorboard \
     memory_profiler \
@@ -191,23 +192,33 @@ RUN pip --no-cache-dir install \
     networkx \
     dgl \
     gunicorn \
-    Flask \
-    Django \
-    falcon \
-    msgpack \
+    # Flask \
+    # Django \
+    # falcon \
+    # msgpack \
     httpx \
-    grpcio \
-    grpcio-tools \
-    kubernetes \
-    prometheus-client \
+    # grpcio \
+    # grpcio-tools \
+    # kubernetes \
+    # prometheus-client \
+    && true
+
+# Optional: Documentation
+RUN pip --no-cache-dir install \
+    sphinx \
+    sphinx_rtd_theme \
+    recommonmark \
+    sphinx-autodoc-typehints>=1.7.0 \
+    typed_ast>=1.4.0 \
+    sphinx_copybutton \
     && true
 
 # Optional: Tensorflow
-# RUN /opt/conda/bin/conda install -c anaconda -y tensorflow-gpu && \
-#     /opt/conda/bin/conda config --add channels conda-forge && \
-#     /opt/conda/bin/conda install -c conda-forge -y keras && \ 
-#     /opt/conda/bin/conda clean -ya \
-#     && true
+RUN /opt/conda/bin/conda install -c anaconda -y tensorflow-gpu && \
+    /opt/conda/bin/conda config --add channels conda-forge && \
+    /opt/conda/bin/conda install -c conda-forge -y keras && \ 
+    /opt/conda/bin/conda clean -ya \
+    && true
 
 # Optional: Data processing
 # RUN pip --no-cache-dir install \

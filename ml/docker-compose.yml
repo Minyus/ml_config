@@ -4,8 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: minyus86/ml:v0.3.1-cuda10.1-cudnn7-runtime
-    container_name: ml
+    image: minyus86/ml:v0.4.0-cuda10.1-cudnn7-runtime
+    container_name: ml04
     # privileged: true
     environment: []
     entrypoint: /bin/sh
