@@ -11,6 +11,7 @@ RUN apt-get update \
     htop \
     httpie \
     jq \
+    ncdu \
     net-tools \
     openssh-client \
     rsync \
